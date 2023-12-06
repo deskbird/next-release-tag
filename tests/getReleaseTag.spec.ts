@@ -262,11 +262,6 @@ describe('test invalid cases', () => {
       'Template not found'
     );
   });
-  it('should throw error for no old release tag', () => {
-    expect(() => getNewReleaseTag('v', 'yy.mm.i', null)).toThrowError(
-      'Old release tag not found'
-    );
-  });
   it('should throw error when old release doesnt start with prefix', () => {
     expect(() => getNewReleaseTag('v', 'yy.mm.i', '20.10.5')).toThrowError(
       'Old release tag does not start with the tag prefix'

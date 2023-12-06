@@ -67,9 +67,18 @@ const parse = (
 
 export const parseTemplate = (
   template: string,
-  oldTag: string,
+  oldTag: string | undefined,
   tagPrefix: string
 ) => {
   const separator = getSeparator(template);
-  return parse(template, oldTag.substring(tagPrefix.length), separator);
+  return oldTag
+    ? parse(template, oldTag.substring(tagPrefix.length), separator)
+    : {
+        separator,
+        oldFullYear: 0,
+        oldShortYear: 0,
+        oldMonth: 0,
+        oldDay: 0,
+        oldItr: 0,
+      };
 };
