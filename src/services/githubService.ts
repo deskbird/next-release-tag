@@ -7,12 +7,14 @@ export const fetchLatestReleaseTag = async (tagPrefix: string) => {
     const octokit = getOctokit(githubToken);
     const { owner, repo } = context.repo;
 
-    const response = await octokit.rest.repos.listTags({
+    const response = await octokit.paginate('GET /repos/{owner}/{repo}/tags', {
       owner,
       repo,
     });
 
-    return response.data.find((tag) => tag.name.startsWith(tagPrefix))?.name;
+    const tags = response.map((tag) => tag.name);
+
+    return tags.find((tag) => tag.startsWith(tagPrefix));
   } catch (e) {
     console.error('Error while fetching tags list for this repository', e);
     throw e;
