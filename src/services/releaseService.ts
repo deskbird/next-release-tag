@@ -37,10 +37,16 @@ const generateNewTagFromOld = (
   const { curFullYear, curShortYear, curMonth, curDay, newItr } =
     getNewPartsData(partsData);
   const newReleaseTag = tagTemplate
-    .replaceAll(IAllowedTemplate.fullYear, curFullYear.toString())
-    .replaceAll(IAllowedTemplate.shortYear, curShortYear.toString())
-    .replaceAll(IAllowedTemplate.month, curMonth.toString())
-    .replaceAll(IAllowedTemplate.day, curDay.toString())
+    .replaceAll(
+      IAllowedTemplate.fullYear,
+      curFullYear.toString().padStart(4, '0')
+    )
+    .replaceAll(
+      IAllowedTemplate.shortYear,
+      curShortYear.toString().padStart(2, '0')
+    )
+    .replaceAll(IAllowedTemplate.month, curMonth.toString().padStart(2, '0'))
+    .replaceAll(IAllowedTemplate.day, curDay.toString().padStart(2, '0'))
     .replaceAll(IAllowedTemplate.itr, newItr.toString());
   return `${tagPrefix}${newReleaseTag}`;
 };
